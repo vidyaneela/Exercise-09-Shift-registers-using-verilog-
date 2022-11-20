@@ -41,39 +41,84 @@ FIGURE-04
 A Parallel in Parallel out (PIPO) shift register is used as a temporary storage device and like SISO Shift register it acts as a delay element.
 
 ### Procedure
-/* write all the steps invloved */
+1.Use quartus software and import required modules.
 
+2.Assign inputs and outputs for shift registers.
 
+3.Assign logic for input to give output at positive edge.
+
+4.Perform opertaions and produce rtl circuit.
 
 ### PROGRAM 
 /*
 Program for  Implementation-of Shift-registers-using-verilog-
-Developed by: 
-RegisterNumber:  
+Developed by: M.Vidya Neela
+RegisterNumber:  212221230120
 */
-
-
-
-
-
-
+### SIPO:
+```
+module SIPO(c,si,po);
+input c,si;
+output [7:0] po;
+reg [7:0] temp;
+always @ (posedge c)
+begin
+temp = {temp[6:0],si};
+end
+assign po = temp;
+endmodule 
+```
+### PISO:
+```
+mmodule PISO(Clk,Pin,load,so);
+input load,Clk;
+input [3:0] Pin;
+output reg so;
+reg [3:0] temp;
+always @ (posedge Clk)
+begin 
+if(load)
+temp <= Pin;
+else
+begin
+so<=temp[3];
+temp <={temp[2:0],1'b0};
+end
+end
+endmodule
+```
+### PIPO:
+```
+module PIPO (Pi,Clk,Po);
+input Clk;
+input [3:0]Pi;
+output reg[3:0]Po;
+always@(posedge Clk)
+begin
+Po=Pi;
+end 
+endmodule
+```
 ### RTL LOGIC  REGISTERS   
+### SIPO:
+![201481964-ba1e3c60-6b23-4f16-b3b7-c343e997fd61](https://user-images.githubusercontent.com/94169318/202909105-b7fda148-6062-4172-95e0-a97e95793ab8.png)
 
+### PISO:
+![201481971-def2820f-7686-47e8-9956-a7ba9e3310af](https://user-images.githubusercontent.com/94169318/202909110-fc16a354-2d2c-48d4-a25f-0c36632c094a.png)
 
-
-
-
-
-
-
+### PIPO:
+![201481975-6b70e72f-f902-428b-be4c-6557ef7f27af](https://user-images.githubusercontent.com/94169318/202909118-698d456e-5c92-44fe-b999-dcc2a060f68b.png)
 
 ### TIMING DIGRAMS FOR SHIFT REGISTERS
+### SIPO:
+![202355175-b4d6f34a-d95b-4060-ac53-58c2563d9f23](https://user-images.githubusercontent.com/94169318/202909137-e6709e2e-b58f-4354-b687-8680510e2eeb.png)
+
+### PISO:
+![202355188-d8ffda0c-2976-4b84-90e0-5d8163ad763f](https://user-images.githubusercontent.com/94169318/202909141-1671ec49-4a94-40e9-975a-670aed97e2b7.png)
+
+### PIPO:
+![202355203-7326964f-ecb1-4adb-99bf-ae8020fea2a2](https://user-images.githubusercontent.com/94169318/202909146-3b52bdcf-8694-4494-863e-381c7cb98440.png)
 
 
-
-
-
-
-
-
-### RESULTS 
+### RESULTS :
+Hence SIPO,PISO and PIPO are implemented using verilog programming and their functionality is validated successfully.
